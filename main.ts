@@ -80,6 +80,3 @@ d d d d d d d d d d d d d d d d
 d d d d d d d d d d d d d d d d 
 `
 }
-info.onLifeZero(function () {
-    game.over(false)
-})
