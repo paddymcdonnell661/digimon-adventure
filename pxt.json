@@ -1,5 +1,5 @@
 {
-    "name": "digimon adventure",
+    "name": "Digimon adventure",
     "dependencies": {
         "device": "*"
     },
