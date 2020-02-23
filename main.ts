@@ -186,8 +186,6 @@ function placeMovingPlatforms () {
 	
 }
 function animateTamer () {
-    let tamerDirection = ""
-    let tamerState = ""
     if (tamerState == "walking") {
         if (mySprite.x % 2 == 0) {
             mySprite.setImage(img`
@@ -317,8 +315,7 @@ function placeMovingTraps () {
 function placeTraps () {
 	
 }
-function initializeLevel () {
-    let level = 0
+function initializeLevel (level: number) {
     if (level == 1) {
         tiles.setTilemap(tiles.createTilemap(
             hex`1000100000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000`,
@@ -391,39 +388,42 @@ function initializeLevel () {
 . . 4 4 f 4 4 5 5 4 4 f 4 4 . . 
 . . . . . f f f f f f . . . . . 
 . . . . . f f . . f f . . . . . 
-`, SpriteKind.tamer)
-}
-function start () {
-    if (start_game == 1) {
-        scene.setBackgroundColor(9)
-    }
-    info.setLife(3)
-    energy = 10
-    attacking = 0
-    horizontal = 1
+`, SpriteKind.Player)
+    mySprite.ay = gravity
+    controller.moveSprite(mySprite, 100, 0)
     scene.cameraFollowSprite(mySprite)
-    controller.moveSprite(mySprite)
+    tamerState = "walking"
+    tamerDirection = "right"
 }
 info.onLifeZero(function () {
     music.powerDown.play()
     pause(2000)
     if (game.ask("continue?")) {
-        start()
+    	
     } else {
         game.over(false, effects.dissolve)
     }
 })
-let attacking = 0
 let vertiall = 0
-let horizontal = 0
 let projectile: Sprite = null
+let tamerDirection = ""
+let tamerState = ""
 let mySprite: Sprite = null
 let bad_guy: Sprite = null
-let energy = 0
 let unhurtable = 0
-let start_game = 0
-start_game = 1
-start()
+let horizontal = 0
+let energy = 0
+let gravity = 0
+scene.setBackgroundColor(9)
+let start_game = 1
+gravity = 400
+let invincibilityPeriod = 2000
+info.setLife(3)
+energy = 10
+let attacking = 0
+horizontal = 1
+let currentLevel = 1
+initializeLevel(currentLevel)
 game.onUpdate(function () {
     if (mySprite.vx > 0) {
         vertiall = 0
