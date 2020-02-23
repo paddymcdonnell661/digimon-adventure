@@ -182,6 +182,73 @@ scene.onOverlapTile(SpriteKind.tamer, myTiles.tile6, function (sprite, location)
         tiles.setTileAt(value, sprites.castle.tileGrass1)
     }
 })
+function animateTamer () {
+    let tamerDirection = ""
+    let tamerState = ""
+    if (tamerState == "walking") {
+        mySprite.setImage(img`
+. . . . . . . f f . . . . . . . . . . . 
+. . . . f f f f 2 f f . . . . . . . . . 
+. . f f e e e e f 2 f f . . . . . . . . 
+. f f e e e e e f 2 2 f f . . . . . . . 
+. f e e e e f f e e e e f . . . . . . . 
+. f f f f f e e 2 2 2 2 e f . . . . . . 
+f f f e 2 2 2 f f f f e 2 f . . . . . . 
+f f f f f f f f e e e f f f . . . . . . 
+f e f e 4 4 e b f 4 4 e e f . . . . . . 
+. f e e 4 d 4 b f d d e f . . . . . . . 
+. . f e e e 4 d d d e e . c . . . . . . 
+. . . f 2 2 2 2 e e d d e c c c c c c c 
+. . . f 4 4 4 e 4 4 d d e c d d d d d . 
+. . . f f f f f e e e e . c c c c c . . 
+. . f f f f f f f f . . . c . . . . . . 
+. . f f f . . f f . . . . . . . . . . . 
+`)
+    }
+    if (tamerState == "attacking") {
+        mySprite.setImage(img`
+. . . . . . . f f . . . . . . . . . . . 
+. . . . f f f f 2 f f . . . . . . . . . 
+. . f f e e e e f 2 f f . . . . . . . . 
+. f f e e e e e f 2 2 f f . . . . . . . 
+. f e e e e f f e e e e f . . . . . . . 
+. f f f f f e e 2 2 2 2 e f . . . . . . 
+f f f e 2 2 2 f f f f e 2 f . . . . . . 
+f f f f f f f f e e e f f f . . . . . . 
+f e f e 4 4 e b f 4 4 e e f . . . . . . 
+. f e e 4 d 4 b f d d e f . . . . . . . 
+. . f e e e 4 d d d e e . c . . . . . . 
+. . . f 2 2 2 2 e e d d e c c c c c c c 
+. . . f 4 4 4 e 4 4 d d e c d d d d d . 
+. . . f f f f f e e e e . c c c c c . . 
+. . f f f f f f f f . . . c . . . . . . 
+. . f f f . . f f . . . . . . . . . . . 
+`)
+    }
+    if (tamerState == "defending") {
+        mySprite.setImage(img`
+. . . . . . . f f . . . . . . . . . . . 
+. . . . f f f f 2 f f . . . . . . . . . 
+. . f f e e e e f 2 f f . . . . . . . . 
+. f f e e e e e f 2 2 f f . . . . . . . 
+. f e e e e f f e e e e f . . . . . . . 
+. f f f f f e e 2 2 2 2 e f . . . . . . 
+f f f e 2 2 2 f f f f e 2 f . . . . . . 
+f f f f f f f f e e e f f f . . . . . . 
+f e f e 4 4 e b f 4 4 e e f . . . . . . 
+. f e e 4 d 4 b f d d e f f f . . . . . 
+. . f e e e 4 d d d e e f d d f . . . . 
+. . . f 2 2 2 2 e e d d e b b f . . . . 
+. . . f 4 4 4 e 4 4 d d e b b f . . . . 
+. . . f f f f f e e e e f b f . . . . . 
+. . f f f f f f f f . . f f . . . . . . 
+. . f f f . . f f . . . . . . . . . . . 
+`)
+    }
+    if (tamerDirection == "left") {
+        mySprite.image.flipX()
+    }
+}
 controller.B.onEvent(ControllerButtonEvent.Pressed, function () {
 	
 })

@@ -1,7 +1,8 @@
 {
     "name": "Digi Adv ",
     "dependencies": {
-        "device": "*"
+        "device": "*",
+        "animation": "*"
     },
     "description": "",
     "files": [
