@@ -182,16 +182,7 @@ scene.onOverlapTile(SpriteKind.tamer, myTiles.tile6, function (sprite, location)
         tiles.setTileAt(value, sprites.castle.tileGrass1)
     }
 })
-function createEnemies () {
-	
-}
 function placeMovingPlatforms () {
-	
-}
-function placeMovingTraps () {
-	
-}
-function placeTraps () {
 	
 }
 function animateTamer () {
@@ -317,6 +308,15 @@ controller.A.onEvent(ControllerButtonEvent.Pressed, function () {
     }
     energy += -1
 })
+function createEnemies () {
+	
+}
+function placeMovingTraps () {
+	
+}
+function placeTraps () {
+	
+}
 function initializeLevel () {
     let level = 0
     if (level == 1) {
@@ -374,26 +374,7 @@ function initializeLevel () {
     placeMovingTraps()
     placeMovingPlatforms()
     createEnemies()
-}
-function start () {
-    if (start_game == 1) {
-        scene.setBackgroundColor(9)
-        tiles.setTilemap(tiles.createTilemap(
-            hex`24000800000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000050000000500000000000500000000000005000000000000000000050000000000050000070404040404040704040404040404040704040404070404040404040404040704040704040404070404040404040704040704040404070404040404070404040704040404040404`,
-            img`
-. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 
-. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 
-. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 
-. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 
-. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 
-. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 
-2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 
-2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 
-`,
-            [myTiles.tile0,myTiles.tile1,myTiles.tile2,myTiles.tile3,sprites.castle.tileGrass1,sprites.builtin.forestTiles0,sprites.castle.tilePath9,sprites.castle.tileGrass2,sprites.dungeon.collectibleBlueCrystal,sprites.dungeon.collectibleRedCrystal,sprites.dungeon.collectibleInsignia,myTiles.tile4,myTiles.tile5,myTiles.tile6],
-            TileScale.Sixteen
-        ))
-        mySprite = sprites.create(img`
+    mySprite = sprites.create(img`
 . . . . . . f f f f . . . . . . 
 . . . . f f f 2 2 f f f . . . . 
 . . . f f f 2 2 2 2 f f f . . . 
@@ -411,13 +392,17 @@ function start () {
 . . . . . f f f f f f . . . . . 
 . . . . . f f . . f f . . . . . 
 `, SpriteKind.tamer)
-        info.setLife(3)
-        energy = 10
-        attacking = 0
-        horizontal = 1
-        scene.cameraFollowSprite(mySprite)
-        controller.moveSprite(mySprite)
+}
+function start () {
+    if (start_game == 1) {
+        scene.setBackgroundColor(9)
     }
+    info.setLife(3)
+    energy = 10
+    attacking = 0
+    horizontal = 1
+    scene.cameraFollowSprite(mySprite)
+    controller.moveSprite(mySprite)
 }
 info.onLifeZero(function () {
     music.powerDown.play()
