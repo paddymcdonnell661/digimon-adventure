@@ -8,6 +8,7 @@ namespace SpriteKind {
     export const wild = SpriteKind.create()
     export const healer = SpriteKind.create()
     export const baby = SpriteKind.create()
+    export const Trap = SpriteKind.create()
 }
 namespace myTiles {
     //% blockIdentity=images._tile
@@ -143,6 +144,82 @@ d d d d d d d d d d d d d d d d
 6 2 5 5 5 5 5 5 5 5 5 5 5 5 2 6 
 6 6 6 6 6 6 6 5 5 6 6 6 6 6 6 6 
 `
+    //% blockIdentity=images._tile
+    export const tile7 = img`
+. 9 9 9 . . . . . . . . . . . . 
+. 9 9 9 9 . . . . . . . . . . . 
+. 9 9 9 9 9 9 . . . . . . . . . 
+. 9 9 9 9 9 9 9 9 . . . . . . . 
+. 9 9 9 9 9 9 9 9 9 9 . . . . . 
+. 9 9 9 9 9 9 9 9 9 9 9 9 . . . 
+. 9 9 9 9 9 9 9 9 9 9 9 9 9 9 . 
+. 9 9 9 9 9 9 9 9 9 9 9 9 . . . 
+. 9 9 9 9 9 9 9 9 9 9 . . . . . 
+. 9 9 9 9 9 9 9 9 . . . . . . . 
+. 9 9 9 9 9 9 . . . . . . . . . 
+. 9 9 9 9 . . . . . . . . . . . 
+. 9 9 9 . . . . . . . . . . . . 
+. 9 9 9 . . . . . . . . . . . . 
+. 9 9 9 . . . . . . . . . . . . 
+. 9 9 9 . . . . . . . . . . . . 
+`
+    //% blockIdentity=images._tile
+    export const tile8 = img`
+. . . . . . . . . . . . . . . . 
+. . . . . . . . . . . . . . . . 
+. . . . . . . . . . . . . . . . 
+. . . . . . . . . . . . . . . . 
+. . . . . . . . . . . . . . . . 
+. . . . . . . . . . . . . . . . 
+. . . . . . . . . . . . . . . . 
+. . . . . . . . . . . . . . . . 
+. . . . . . . . . . . . . . . . 
+. . . . . . . . . . . . . . . . 
+. . . . . . . . . . . . . . . . 
+. . . . . . . . . . . . . . . . 
+. . . . . . . . . . . . . . . . 
+. . . . . . . . . . . . . . . . 
+. . . . . . . . . . . . . . . . 
+. . . . . . . . . . . . . . . . 
+`
+    //% blockIdentity=images._tile
+    export const tile9 = img`
+. . . . . . . . . . . . . . . . 
+. . . . . . . . . . . . . . . . 
+. . . . . . . . . . . . . . . . 
+. . . . . . . . . . . . . . . . 
+. . . . . . . . . . . . . . . . 
+. . . . . . . . . . . . . . . . 
+. . . . . . . . . . . . . . . . 
+. . . . . . . . . . . . . . . . 
+. . . . . . . . . . . . . . . . 
+. . . . . . . . . . . . . . . . 
+. . . . . . . . . . . . . . . . 
+. . . . . . . . . . . . . . . . 
+. . . . . . . . . . . . . . . . 
+. . f f f f f f f f f f f f . . 
+. f 2 2 2 2 2 2 2 2 2 2 2 2 f . 
+. . f f f f f f f f f f f f . . 
+`
+    //% blockIdentity=images._tile
+    export const tile10 = img`
+. . . . . . . . . . . . . . . . 
+. . . . . . . . . . . . . . . . 
+. . . . . . . . . . . . . . . . 
+. . . . . . . . . . . . . . . . 
+. . . . . . . . . . . . . . . . 
+. . . . . . . . . . . . . . . . 
+. . . . . . . . . . . . . . . . 
+. . . . . . . . . . . . . . . . 
+. . . . . . . . . . . . . . . . 
+. . . . . . . . . . . . . . . . 
+. . . . . . . . . . . . . . . . 
+. . . . . . . . . . . . . . . . 
+. . . . . . . . . . . . . . . . 
+. . . . . . . . . . . . . . . . 
+. . . . . . . . . . . . . . . . 
+. . . . . . . . . . . . . . . . 
+`
 }
 sprites.onOverlap(SpriteKind.tamer, SpriteKind.Enemy, function (sprite, otherSprite) {
     if (unhurtable == 0) {
@@ -152,34 +229,6 @@ sprites.onOverlap(SpriteKind.tamer, SpriteKind.Enemy, function (sprite, otherSpr
         otherSprite.destroy()
         pause(2000)
         unhurtable = 0
-    }
-})
-scene.onOverlapTile(SpriteKind.tamer, myTiles.tile6, function (sprite, location) {
-    scene.cameraShake(2, 200)
-    energy += 1
-    tiles.setTileAt(location, myTiles.tile2)
-    for (let value of tiles.getTilesByType(myTiles.tile4)) {
-        bad_guy = sprites.create(img`
-. . . . f f f f . . . f f . . . 
-. . . f 5 5 f . . f f 5 5 f . . 
-. . . f f f f f f 5 5 f f f f . 
-. . . f 5 5 5 5 5 5 5 f . . . . 
-. . f 5 5 5 5 5 5 f f 5 f . . . 
-. . f f f f f 5 f f 5 5 f . . . 
-. f 6 6 6 6 6 f 5 5 5 5 f . . . 
-. f 6 6 6 6 6 6 f 5 5 5 f . . . 
-. f 6 6 6 6 f f f 5 5 5 f . f . 
-. . f 6 6 f 6 6 f 5 5 f . f c f 
-. . . f f f f f f f f f . f c f 
-. . f c c f 2 f c c c f f f c f 
-. . f f f 2 2 2 f f f f 5 5 f . 
-. . . f 2 f f f 2 2 f 5 5 5 f . 
-. . . f 2 2 2 2 2 2 2 f 5 f . . 
-. . . . f f f f f f f f f . . . 
-`, SpriteKind.Enemy)
-        tiles.placeOnTile(bad_guy, value)
-        bad_guy.follow(mySprite, 25)
-        tiles.setTileAt(value, sprites.castle.tileGrass1)
     }
 })
 function placeMovingPlatforms () {
@@ -271,8 +320,24 @@ f e f e 4 4 e b f 4 4 e e f . . . . . .
         mySprite.image.flipX()
     }
 }
+sprites.onOverlap(SpriteKind.Player, SpriteKind.Trap, function (sprite, otherSprite) {
+    mySprite.startEffect(effects.spray)
+    info.changeLifeBy(-1)
+    pause(invincibilityPeriod)
+    effects.clearParticles(mySprite)
+})
 controller.B.onEvent(ControllerButtonEvent.Pressed, function () {
-	
+    if (mySprite.vy == 0) {
+        mySprite.vy = -180
+        jump = false
+    } else {
+        if (jump == false) {
+            if (mySprite.vy > -60 && mySprite.vy < 60) {
+                mySprite.vy = -120
+                jump = true
+            }
+        }
+    }
 })
 function end_game () {
     info.setScore(0)
@@ -313,31 +378,54 @@ function placeMovingTraps () {
 	
 }
 function placeTraps () {
-	
+    for (let traps of tiles.getTilesByType(myTiles.tile9)) {
+        sausageTrap = sprites.create(img`
+. . . . . . . . . . . . . . . . 
+. . . . . . . . . . . . . . . . 
+. . . . . . . . . . . . . . . . 
+. . . . . . . . . . . . . . . . 
+. . . . . . . . . . . . . . . . 
+. . . . . . . . . . . . . . . . 
+. . . . . . . . . . . . . . . . 
+. . . . . . . . . . . . . . . . 
+. . . . . . . . . . . . . . . . 
+. . . . . . . . . . . . . . . . 
+. . . . . . . . . . . . . . . . 
+. . . . . . . . . . . . . . . . 
+. . . . . . . . . . . . . . . . 
+. . f f f f f f f f f f f f . . 
+. f 2 2 2 2 2 2 2 2 2 2 2 2 f . 
+. . f f f f f f f f f f f f . . 
+`, SpriteKind.Trap)
+        tiles.placeOnTile(sausageTrap, traps)
+    }
 }
+scene.onOverlapTile(SpriteKind.Player, sprites.dungeon.hazardWater, function (sprite, location) {
+    game.over(false)
+})
 function initializeLevel (level: number) {
     if (level == 1) {
         tiles.setTilemap(tiles.createTilemap(
-            hex`1000100000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000`,
+            hex`34001000000c0000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000d000000000000000000000000000000000000000000000000000000000000000d00100000000000000000000000000d0007070707070700000000000000000000000000000000000000000000000000000000070707070707000000000000000000070707070707070707000000000000000000000000000000000000000000000000000000000707070707070b0b0b0b0b0b0b0b0b0707070707070707070000000000000000000000000000000000000000000000000000000007070707070702020202020202020207070707070707070700000000000000000000000000000000000000000000000000000000`,
             img`
-. . . . . . . . . . . . . . . . 
-. . . . . . . . . . . . . . . . 
-. . . . . . . . . . . . . . . . 
-. . . . . . . . . . . . . . . . 
-. . . . . . . . . . . . . . . . 
-. . . . . . . . . . . . . . . . 
-. . . . . . . . . . . . . . . . 
-. . . . . . . . . . . . . . . . 
-. . . . . . . . . . . . . . . . 
-. . . . . . . . . . . . . . . . 
-. . . . . . . . . . . . . . . . 
-. . . . . . . . . . . . . . . . 
-. . . . . . . . . . . . . . . . 
-. . . . . . . . . . . . . . . . 
-. . . . . . . . . . . . . . . . 
-. . . . . . . . . . . . . . . . 
+. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 
+. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 
+. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 
+. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 
+. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 
+. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 
+. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 
+. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 
+. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 
+. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 
+. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 
+. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 
+. . . . . . . . . . . . . . . . . . 2 2 2 2 2 2 . . . . . . . . . . . . . . . . . . . . . . . . . . . . 
+2 2 2 2 2 2 . . . . . . . . . 2 2 2 2 . . . . 2 . . . . . . . . . . . . . . . . . . . . . . . . . . . . 
+. . . . . 2 . . . . . . . . . 2 . . . . . . . 2 . . . . . . . . . . . . . . . . . . . . . . . . . . . . 
+. . . . . 2 . . . . . . . . . 2 . . . . . . . 2 . . . . . . . . . . . . . . . . . . . . . . . . . . . . 
 `,
-            [myTiles.tile0,myTiles.tile1,myTiles.tile2,myTiles.tile3,myTiles.tile4,myTiles.tile5,myTiles.tile6],
+            [myTiles.tile0,myTiles.tile1,myTiles.tile2,myTiles.tile3,myTiles.tile4,myTiles.tile5,myTiles.tile6,sprites.castle.tileGrass1,sprites.castle.tilePath5,sprites.castle.tilePath2,sprites.builtin.forestTiles28,sprites.dungeon.hazardWater,myTiles.tile7,sprites.castle.saplingPine,myTiles.tile8,sprites.builtin.crowd5,myTiles.tile9,myTiles.tile10],
             TileScale.Sixteen
         ))
     } else {
@@ -362,7 +450,7 @@ function initializeLevel (level: number) {
 . . . . . . . . . . . . . . . . 
 . . . . . . . . . . . . . . . . 
 `,
-            [myTiles.tile0,myTiles.tile1,myTiles.tile2,myTiles.tile3,myTiles.tile4,myTiles.tile5,myTiles.tile6],
+            [myTiles.tile0,myTiles.tile1,myTiles.tile2,myTiles.tile3,myTiles.tile4,myTiles.tile5,myTiles.tile6,myTiles.tile7,myTiles.tile8,myTiles.tile9,myTiles.tile10],
             TileScale.Sixteen
         ))
         }
@@ -391,6 +479,7 @@ function initializeLevel (level: number) {
 `, SpriteKind.Player)
     mySprite.ay = gravity
     controller.moveSprite(mySprite, 100, 0)
+    tiles.placeOnRandomTile(mySprite, myTiles.tile7)
     scene.cameraFollowSprite(mySprite)
     tamerState = "walking"
     tamerDirection = "right"
@@ -404,20 +493,23 @@ info.onLifeZero(function () {
         game.over(false, effects.dissolve)
     }
 })
+let sausageTrap: Sprite = null
 let vertiall = 0
 let projectile: Sprite = null
+let jump = false
 let tamerDirection = ""
-let tamerState = ""
 let mySprite: Sprite = null
-let bad_guy: Sprite = null
+let tamerState = ""
 let unhurtable = 0
 let horizontal = 0
 let energy = 0
+let invincibilityPeriod = 0
 let gravity = 0
+game.showLongText("paddy fill this out later", DialogLayout.Full)
 scene.setBackgroundColor(9)
 let start_game = 1
 gravity = 400
-let invincibilityPeriod = 2000
+invincibilityPeriod = 2000
 info.setLife(3)
 energy = 10
 let attacking = 0
