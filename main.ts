@@ -391,7 +391,27 @@ controller.A.onEvent(ControllerButtonEvent.Pressed, function () {
     energy += -1
 })
 function createEnemies () {
-	
+    for (let enemies of tiles.getTilesByType(myTiles.tile11)) {
+        kuwagamon = sprites.create(img`
+. . f f f f . . . f f f f . . . 
+. f 2 2 f . . . . . f 2 2 f . . 
+f 2 2 2 f f . . . f f f 2 2 f . 
+f 2 2 f . . . . . . . . f 2 2 f 
+. f 2 2 f f f f f f f f 2 2 2 f 
+. . f 2 2 f 2 2 2 2 2 f 2 2 f . 
+. . . f f 2 2 2 2 2 2 2 f f . . 
+. . . . f 2 f 2 2 f 2 2 f . . . 
+. . . . f 2 f 2 2 f 2 2 f . . . 
+. . f f f 7 7 7 7 7 7 f 2 f . . 
+. . f 2 2 f f f f f f f 2 2 f . 
+. . f 2 f 2 2 f 2 2 2 2 f 2 f . 
+. . f 2 f f f f f f f f 2 2 f . 
+. . f f f 2 2 f 2 2 2 f f f f . 
+. f 2 f 2 f f f f f f 2 2 f 2 f 
+. f f f f f . . . . f f f f f f 
+`, SpriteKind.wild)
+        tiles.placeOnTile(kuwagamon, enemies)
+    }
 }
 function placeMovingTraps () {
 	
@@ -513,6 +533,7 @@ info.onLifeZero(function () {
     }
 })
 let sausageTrap: Sprite = null
+let kuwagamon: Sprite = null
 let vertiall = 0
 let projectile: Sprite = null
 let jump = false
