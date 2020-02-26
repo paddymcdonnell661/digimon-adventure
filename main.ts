@@ -359,7 +359,7 @@ controller.B.onEvent(ControllerButtonEvent.Pressed, function () {
     }
 })
 sprites.onOverlap(SpriteKind.Player, SpriteKind.wild, function (sprite, otherSprite) {
-    if (sprite.vy > 0 && (!(sprite.isHittingTile(CollisionDirection.Bottom)) || mySprite.y == otherSprite.top)) {
+    if (sprite.vy > 0 && (!(sprite.isHittingTile(CollisionDirection.Bottom)) || sprite.y == otherSprite.top)) {
         sprite.vy = -100
         otherSprite.destroy()
     } else {
@@ -422,12 +422,12 @@ f 2 2 f . . . . . . . . f 2 2 f
 . f f f f f . . . . f f f f f f 
 `, SpriteKind.wild)
         tiles.placeOnTile(kuwagamon, enemies)
-    }
-    kuwagamon.ay = gravity
-    if (Math.percentChance(50)) {
-        kuwagamon.vx = Math.randomRange(30, 60)
-    } else {
-        kuwagamon.vx = Math.randomRange(-60, -30)
+        kuwagamon.ay = gravity
+        if (Math.percentChance(50)) {
+            kuwagamon.vx = Math.randomRange(30, 60)
+        } else {
+            kuwagamon.vx = Math.randomRange(-60, -30)
+        }
     }
 }
 function placeMovingTraps () {
