@@ -9,6 +9,9 @@ namespace SpriteKind {
     export const healer = SpriteKind.create()
     export const baby = SpriteKind.create()
     export const Trap = SpriteKind.create()
+    export const movingTrap = SpriteKind.create()
+    export const platform = SpriteKind.create()
+    export const life = SpriteKind.create()
 }
 namespace myTiles {
     //% blockIdentity=images._tile
@@ -239,6 +242,139 @@ d d d d d d d d d d d d d d d d
 . 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 
 . 9 9 9 9 9 . . . . 9 9 9 9 9 9 
 `
+    //% blockIdentity=images._tile
+    export const tile12 = img`
+. . . . . . . . . . . . . . . . 
+. . . . . . . . . . . . . . . . 
+. . . . . . . . . . . . . . . . 
+. . . . . . . . . . . . . . . . 
+. . . . . . . . . . . . . . . . 
+. . . . . . . . . . . . . . . . 
+. . . . . . . . . . . . . . . . 
+. . . . . . . . . . . . . . . . 
+. . . . . . . . . . . . . . . . 
+. . . . . . . . . . . . . . . . 
+. . . . . . . . . . . . . . . . 
+. . . . . . . . . . . . . . . . 
+. . . . . . . . . . . . . . . . 
+. . . . . . . . . . . . . . . . 
+. . . . . . . . . . . . . . . . 
+. . . . . . . . . . . . . . . . 
+`
+    //% blockIdentity=images._tile
+    export const tile13 = img`
+. . . . . . . . . . . . . . . . 
+. . . . . . . . . . . . . . . . 
+. . . . . . . . . . . . . . . . 
+. . . . . . . . . . . . . . . . 
+. . . . . . . . . . . . . . . . 
+. . . . . . . . . . . . . . . . 
+. . . . . . . . . . . . . . . . 
+. . . . . . . . . . . . . . . . 
+. . . . . . . . . . . . . . . . 
+. . . . . . . . . . . . . . . . 
+. . . . . . . . . . . . . . . . 
+. . . . . . . . . . . . . . . . 
+. . . . . . . . . . . . . . . . 
+. . . . . . . . . . . . . . . . 
+. . . . . . . . . . . . . . . . 
+. . . . . . . . . . . . . . . . 
+`
+    //% blockIdentity=images._tile
+    export const tile14 = img`
+. . . . f f f f f f f f . . . . 
+. . . f 2 2 2 2 2 2 2 2 f . . . 
+. . f 2 4 4 4 4 4 4 4 4 2 f . . 
+. f 2 4 5 5 5 5 5 5 5 5 4 2 f . 
+f 2 4 5 7 7 7 7 7 7 7 7 5 4 2 f 
+f 2 4 5 7 6 6 6 6 6 6 7 5 4 2 f 
+f 2 4 5 7 6 9 9 9 9 6 7 5 4 2 f 
+f 2 4 5 7 6 9 8 8 9 6 7 5 4 2 f 
+f 2 4 5 7 6 9 8 8 9 6 7 5 4 2 f 
+f 2 4 5 7 6 9 9 9 9 6 7 5 4 2 f 
+f 2 4 5 7 6 6 6 6 6 6 7 5 4 2 f 
+f 2 4 5 7 7 7 7 7 7 7 7 5 4 2 f 
+. f 2 4 5 5 5 5 5 5 5 5 4 2 f . 
+. . f 2 4 4 4 4 4 4 4 4 2 f . . 
+. . . f 2 2 2 2 2 2 2 2 f . . . 
+. . . . f f f f f f f f . . . . 
+`
+    //% blockIdentity=images._tile
+    export const tile15 = img`
+f f f f f f f f f f f f f f f f 
+f 7 7 7 7 7 7 7 7 7 7 7 7 7 7 f 
+f 7 7 7 7 7 7 7 7 7 7 7 7 7 7 f 
+f 7 7 7 7 7 7 7 7 7 7 7 7 7 7 f 
+f f f f f f f f f f f f f f f f 
+. . . . . . . . . . . f 7 7 7 f 
+. . . . . . . . . . . . f 7 7 f 
+. . . . . . . . . . . . . f . f 
+. . . . . . . . . . . . . . f f 
+. . . . . . . . . . . . . . . f 
+. . . . . . . . . . . . . . . . 
+. . . . . . . . . . . . . . . . 
+. . . . . . . . . . . . . . . . 
+. . . . . . . . . . . . . . . . 
+. . . . . . . . . . . . . . . . 
+. . . . . . . . . . . . . . . . 
+`
+    //% blockIdentity=images._tile
+    export const tile16 = img`
+. . . . . . . . . . . . . . . . 
+. . . . . . . . . . . . . . . . 
+. . . . . . . . . . . . . . . . 
+. . . . . . . . . . . . . . . . 
+. . . . . . . . . . . . . . . . 
+. . . . . . . . . . . . . . . . 
+. . . . . . . . . . . . . . . . 
+. . . . . . . . . . . . . . . . 
+. . . . . . . . . . . . . . . . 
+. . . . . . . . . . . . . . . . 
+. . . . . . f . f . . . . . . . 
+. . . . . f 1 f 2 f . . . . . . 
+. . . . f 2 2 2 2 2 f . . . . . 
+. . . . . f 2 2 2 f . . . . . . 
+. . . . . . f 2 f . . . . . . . 
+. . . . . . . f . . . . . . . . 
+`
+    //% blockIdentity=images._tile
+    export const tile17 = img`
+. . . . . . . . . . . . . . . . 
+. . . . . . . . . . . . . . . . 
+. . . . . . . . . . . . . . . . 
+. . . . . . . . . . . . . . . . 
+. . . . . . . . . . . . . . . . 
+. . . . . . . . . . . . . . . . 
+. . . . . . . . . . . . . . . . 
+. . . . . . . . . . . . . . . . 
+. . . . . . . . . . . . . . . . 
+. . . . . . . . . . . . . . . . 
+. . . . . . . . . . . . . . . . 
+. . . . . . . . . . . . . . . . 
+. . . . . . . . . . . . . . . . 
+. . . . . . . . . . . . . . . . 
+. . . . . . . . . . . . . . . . 
+. . . . . . . . . . . . . . . . 
+`
+    //% blockIdentity=images._tile
+    export const tile18 = img`
+. . . . . . . . . . . . . . . . 
+. . . . . . . . . . . . . . . . 
+. . . . . . . . . . . . . . . . 
+. . . . . . . . . . . . . . . . 
+. . . . . . . . . . . . . . . . 
+. . . . . . . . . . . . . . . . 
+. . . . . . . . . . . . . . . . 
+. . . . . . . . . . . . . . . . 
+. . . . . . . . . . . . . . . . 
+. . . . . . . . . . . . . . . . 
+. . . . . . 9 . 9 . . . . . . . 
+. . . . . 9 9 9 9 9 . . . . . . 
+. . . . 9 9 9 9 9 9 9 . . . . . 
+. . . . . 9 9 9 9 9 . . . . . . 
+. . . . . . 9 9 9 . . . . . . . 
+. . . . . . . 9 . . . . . . . . 
+`
 }
 sprites.onOverlap(SpriteKind.tamer, SpriteKind.Enemy, function (sprite, otherSprite) {
     if (unhurtable == 0) {
@@ -248,10 +384,49 @@ sprites.onOverlap(SpriteKind.tamer, SpriteKind.Enemy, function (sprite, otherSpr
         otherSprite.destroy()
         pause(2000)
         unhurtable = 0
+        energy += 1
     }
 })
-function placeMovingPlatforms () {
-	
+function placeLife () {
+    for (let lifeList of tiles.getTilesByType(myTiles.tile18)) {
+        lifePosition = sprites.create(img`
+. . . . . . . . . . . . . . . . 
+. . . . . . . . . . . . . . . . 
+. . . . . . . . . . . . . . . . 
+. . . . . . . . . . . . . . . . 
+. . . . . . . . . . . . . . . . 
+. . . . . . . . . . . . . . . . 
+. . . . . . . . . . . . . . . . 
+. . . . . . . . . . . . . . . . 
+. . . . . . . . . . . . . . . . 
+. . . . . . . . . . . . . . . . 
+. . . . . . f . f . . . . . . . 
+. . . . . f 1 f 2 f . . . . . . 
+. . . . f 2 2 2 2 2 f . . . . . 
+. . . . . f 2 2 2 f . . . . . . 
+. . . . . . f 2 f . . . . . . . 
+. . . . . . . f . . . . . . . . 
+`, SpriteKind.life)
+        tiles.placeOnTile(lifePosition, lifeList)
+    }
+}
+function clearLevel () {
+    mySprite.destroy()
+    for (let movingTrapList of sprites.allOfKind(SpriteKind.movingTrap)) {
+        movingTrapList.destroy()
+    }
+    for (let trapList of sprites.allOfKind(SpriteKind.Trap)) {
+        trapList.destroy()
+    }
+    for (let kuwagamonList of sprites.allOfKind(SpriteKind.wild)) {
+        kuwagamonList.destroy()
+    }
+    for (let platformList of sprites.allOfKind(SpriteKind.platform)) {
+        platformList.destroy()
+    }
+    for (let lifeList of sprites.allOfKind(SpriteKind.life)) {
+        lifeList.destroy()
+    }
 }
 function animateTamer () {
     if (tamerState == "walking") {
@@ -430,6 +605,24 @@ f 2 2 f . . . . . . . . f 2 2 f
         }
     }
 }
+sprites.onOverlap(SpriteKind.Player, SpriteKind.life, function (sprite, otherSprite) {
+    mySprite.startEffect(effects.halo)
+    if (info.life() < 5) {
+        info.changeLifeBy(1)
+    }
+    effects.clearParticles(mySprite)
+    otherSprite.destroy()
+})
+scene.onOverlapTile(SpriteKind.Player, myTiles.tile14, function (sprite, location) {
+    if (currentLevel != 2) {
+        game.splash("Level up!")
+        currentLevel += 1
+        clearLevel()
+        initializeLevel(currentLevel)
+    } else {
+        game.over(true)
+    }
+})
 function placeMovingTraps () {
 	
 }
@@ -456,24 +649,33 @@ function placeTraps () {
         tiles.placeOnTile(sausageTrap, traps)
     }
 }
+function placePlatforms () {
+    for (let rightPlaformLocations of tiles.getTilesByType(myTiles.tile15)) {
+        if (mySprite.tileKindAt(TileDirection.Bottom, myTiles.tile15)) {
+            tiles.setWallAt(rightPlaformLocations, true)
+        } else {
+            tiles.setWallAt(rightPlaformLocations, false)
+        }
+    }
+}
 scene.onOverlapTile(SpriteKind.Player, sprites.dungeon.hazardWater, function (sprite, location) {
     game.over(false)
 })
 function initializeLevel (level: number) {
     if (level == 1) {
         tiles.setTilemap(tiles.createTilemap(
-            hex`34001000000c0000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000012000000000d00000000000000000000000000000000000000000000000000000000000000000d00120000000000000d000000070707070707070707000000000000000000000000000000000000000d00100000000000000000070707071507070707070707071507070707070707150707000000000000000000000d0000120d00070715070707000000001507070707070707070707071507070707070715070707070707070707000000000007070707070715070707070715070b0b0b0b07070707071507070715070707070707150707070707150707070707070b0b0b0b0b071507070707070715070707070702020202070707070707070707070707070707070707070707070707150707070702020202020707070707070707`,
+            hex`34001000000c0000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000001c00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000070707070000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000707070700000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000007070707000000000000000000000000000000000000000000000000000707070000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000012000000000d00000000000000000000000000000000000000000000000000000000000000000d00120000000000000d000000070707070707070707000000000000000000000000000000000000000d00100000000000000000070707071507070707070707071507070707070707150707000000000000000000000d0000120d18070715070707000000001507070707070707070707071507070707070715070707070707070707000000000007070707070715070707070715070b0b0b0b07070707071507070715070707070707150707070707150707070707070b0b0b0b0b071507070707070715070707070702020202070707070707070707070707070707070707070707070707150707070702020202020707070707070707`,
             img`
 . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 
 . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 
 . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 
+. . . . . . . . . . . . . . . . . . . . . . . . . 2 2 2 2 . . . . . . . . . . . . . . . . . . . . . . . 
 . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 
 . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 
+. . . . . . . . . . . . . . . . . . . . 2 2 2 2 . . . . . . . . . . . . . . . . . . . . . . . . . . . . 
 . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 
-. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 
-. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 
-. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 
-. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 
+. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 2 2 2 2 . . . . . . . . 
+. . . . . . . . . . . . . . . . . 2 2 2 . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 
 . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 
 . . . . . . . . . . . . . . . . . . . . . . . . . 2 2 2 2 2 2 2 2 2 . . . . . . . . . . . . . . . . . . 
 . . . . . . . . . . . . 2 2 2 2 2 2 2 2 2 2 2 2 2 2 . . . . . . . 2 2 2 . . . . . . . . . . . . . . . . 
@@ -481,13 +683,13 @@ function initializeLevel (level: number) {
 . . . . . 2 . . . . 2 . . . . . . . . . . . . . . . . . . . . . . . . . . . 2 . . . . . 2 . . . . . . . 
 . . . . . 2 . . . . 2 . . . . . . . . . . . . . . . . . . . . . . . . . . . 2 . . . . . 2 . . . . . . . 
 `,
-            [myTiles.tile0,myTiles.tile1,myTiles.tile2,myTiles.tile3,myTiles.tile4,myTiles.tile5,myTiles.tile6,sprites.castle.tileGrass1,sprites.castle.tilePath5,sprites.castle.tilePath2,sprites.builtin.forestTiles28,sprites.dungeon.hazardWater,myTiles.tile7,sprites.castle.saplingPine,myTiles.tile8,sprites.builtin.crowd5,myTiles.tile9,myTiles.tile10,myTiles.tile11,sprites.castle.rock1,sprites.castle.rock2,sprites.castle.tileGrass2],
+            [myTiles.tile0,myTiles.tile1,myTiles.tile2,myTiles.tile3,myTiles.tile4,myTiles.tile5,myTiles.tile6,sprites.castle.tileGrass1,sprites.castle.tilePath5,sprites.castle.tilePath2,sprites.builtin.forestTiles28,sprites.dungeon.hazardWater,myTiles.tile7,sprites.castle.saplingPine,myTiles.tile8,sprites.builtin.crowd5,myTiles.tile9,myTiles.tile10,myTiles.tile11,sprites.castle.rock1,sprites.castle.rock2,sprites.castle.tileGrass2,myTiles.tile12,myTiles.tile13,myTiles.tile14,myTiles.tile15,myTiles.tile16,myTiles.tile17,myTiles.tile18],
             TileScale.Sixteen
         ))
     } else {
         if (level == 2) {
             tiles.setTilemap(tiles.createTilemap(
-            hex`1000100000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000`,
+            hex`100034000700000000000000000000000000000e000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000f0f0f0f0f00000000000000000000000f0f0f0f0f00000000000000000000100f0f0f0f0f000000000000000000000000000000000000000b0000000000000000000000000f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f`,
             img`
 . . . . . . . . . . . . . . . . 
 . . . . . . . . . . . . . . . . 
@@ -505,16 +707,53 @@ function initializeLevel (level: number) {
 . . . . . . . . . . . . . . . . 
 . . . . . . . . . . . . . . . . 
 . . . . . . . . . . . . . . . . 
+. . . . . . . . . . . . . . . . 
+. . . . . . . . . . . . . . . . 
+. . . . . . . . . . . . . . . . 
+. . . . . . . . . . . . . . . . 
+. . . . . . . . . . . . . . . . 
+. . . . . . . . . . . . . . . . 
+. . . . . . . . . . . . . . . . 
+. . . . . . . . . . . . . . . . 
+. . . . . . . . . . . . . . . . 
+. . . . . . . . . . . . . . . . 
+. . . . . . . . . . . . . . . . 
+. . . . . . . . . . . . . . . . 
+. . . . . . . . . . . . . . . . 
+. . . . . . . . . . . . . . . . 
+. . . . . . . . . . . . . . . . 
+. . . . . . . . . . . . . . . . 
+. . . . . . . . . . . . . . . . 
+. . . . . . . . . . . . . . . . 
+. . . . . . . . . . . . . . . . 
+. . . . . . . . . . . . . . . . 
+. . . . . . . . . . . . . . . . 
+. . . . . . . . . . . . . . . . 
+. . . . . . . . . . . . . . . . 
+. . . . . . . . . . . . . . . . 
+. . . . . . . . . . . . . . . . 
+. . . . . . . . . . . . . . . . 
+. . . . . . . . . . . . . . . . 
+. . . . . . . . . . . . . . . . 
+. . . . . . . . . . . . . . . . 
+. . . . . . . . . . . 2 2 2 2 2 
+. . . . . . . . . . . 2 2 2 2 2 
+. . . . . . . . . . . . . . . . 
+. . . . . . . . . . . . . . . . 
+. . . . . . . . . . . . . . . . 
+2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 
+2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 
 `,
-            [myTiles.tile0,myTiles.tile1,myTiles.tile2,myTiles.tile3,myTiles.tile4,myTiles.tile5,myTiles.tile6,myTiles.tile7,myTiles.tile8,myTiles.tile9,myTiles.tile10,myTiles.tile11],
+            [myTiles.tile0,myTiles.tile1,myTiles.tile2,myTiles.tile3,myTiles.tile4,myTiles.tile5,myTiles.tile6,myTiles.tile7,myTiles.tile8,myTiles.tile9,myTiles.tile10,myTiles.tile11,myTiles.tile12,myTiles.tile13,myTiles.tile14,sprites.castle.tileGrass1,myTiles.tile15,myTiles.tile16,myTiles.tile17,myTiles.tile18],
             TileScale.Sixteen
         ))
         }
     }
     placeTraps()
     placeMovingTraps()
-    placeMovingPlatforms()
+    placePlatforms()
     createEnemies()
+    placeLife()
     mySprite = sprites.create(img`
 . . . . . . f f f f . . . . . . 
 . . . . f f f 2 2 f f f . . . . 
@@ -555,26 +794,38 @@ let vertiall = 0
 let projectile: Sprite = null
 let jump = false
 let tamerDirection = ""
-let mySprite: Sprite = null
 let tamerState = ""
+let mySprite: Sprite = null
+let lifePosition: Sprite = null
 let unhurtable = 0
+let currentLevel = 0
 let horizontal = 0
 let energy = 0
 let invincibilityPeriod = 0
 let gravity = 0
-game.showLongText("paddy fill this out later", DialogLayout.Full)
+game.showLongText("paddy fill this out later", DialogLayout.Center)
 scene.setBackgroundColor(9)
 let start_game = 1
 gravity = 400
 invincibilityPeriod = 2000
-info.setLife(3)
+info.setLife(4)
 energy = 10
 let attacking = 0
 horizontal = 1
-let currentLevel = 1
+currentLevel = 1
 initializeLevel(currentLevel)
 game.onUpdate(function () {
     animateTamer()
+    placePlatforms()
+})
+game.onUpdate(function () {
+    for (let kuwagamonMove of sprites.allOfKind(SpriteKind.wild)) {
+        if (kuwagamonMove.isHittingTile(CollisionDirection.Left) || kuwagamonMove.tileKindAt(TileDirection.Left, sprites.castle.saplingPine)) {
+            kuwagamonMove.vx = Math.randomRange(30, 60)
+        } else if (kuwagamonMove.isHittingTile(CollisionDirection.Right) || kuwagamonMove.tileKindAt(TileDirection.Right, sprites.castle.saplingPine)) {
+            kuwagamonMove.vx = Math.randomRange(-60, -30)
+        }
+    }
 })
 game.onUpdate(function () {
     if (mySprite.vx > 0) {
