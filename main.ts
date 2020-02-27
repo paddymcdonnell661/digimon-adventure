@@ -12,6 +12,7 @@ namespace SpriteKind {
     export const movingTrap = SpriteKind.create()
     export const platform = SpriteKind.create()
     export const life = SpriteKind.create()
+    export const movingPlatform = SpriteKind.create()
 }
 namespace myTiles {
     //% blockIdentity=images._tile
@@ -387,47 +388,6 @@ sprites.onOverlap(SpriteKind.tamer, SpriteKind.Enemy, function (sprite, otherSpr
         energy += 1
     }
 })
-function placeLife () {
-    for (let lifeList of tiles.getTilesByType(myTiles.tile18)) {
-        lifePosition = sprites.create(img`
-. . . . . . . . . . . . . . . . 
-. . . . . . . . . . . . . . . . 
-. . . . . . . . . . . . . . . . 
-. . . . . . . . . . . . . . . . 
-. . . . . . . . . . . . . . . . 
-. . . . . . . . . . . . . . . . 
-. . . . . . . . . . . . . . . . 
-. . . . . . . . . . . . . . . . 
-. . . . . . . . . . . . . . . . 
-. . . . . . . . . . . . . . . . 
-. . . . . . f . f . . . . . . . 
-. . . . . f 1 f 2 f . . . . . . 
-. . . . f 2 2 2 2 2 f . . . . . 
-. . . . . f 2 2 2 f . . . . . . 
-. . . . . . f 2 f . . . . . . . 
-. . . . . . . f . . . . . . . . 
-`, SpriteKind.life)
-        tiles.placeOnTile(lifePosition, lifeList)
-    }
-}
-function clearLevel () {
-    mySprite.destroy()
-    for (let movingTrapList of sprites.allOfKind(SpriteKind.movingTrap)) {
-        movingTrapList.destroy()
-    }
-    for (let trapList of sprites.allOfKind(SpriteKind.Trap)) {
-        trapList.destroy()
-    }
-    for (let kuwagamonList of sprites.allOfKind(SpriteKind.wild)) {
-        kuwagamonList.destroy()
-    }
-    for (let platformList of sprites.allOfKind(SpriteKind.platform)) {
-        platformList.destroy()
-    }
-    for (let lifeList of sprites.allOfKind(SpriteKind.life)) {
-        lifeList.destroy()
-    }
-}
 function animateTamer () {
     if (tamerState == "walking") {
         if (mySprite.x % 2 == 0) {
@@ -551,6 +511,29 @@ function end_game () {
 sprites.onOverlap(SpriteKind.Enemy, SpriteKind.Projectile, function (sprite, otherSprite) {
     sprite.destroy()
 })
+function placeLife () {
+    for (let lifeList of tiles.getTilesByType(myTiles.tile18)) {
+        lifePosition = sprites.create(img`
+. . . . . . . . . . . . . . . . 
+. . . . . . . . . . . . . . . . 
+. . . . . . . . . . . . . . . . 
+. . . . . . . . . . . . . . . . 
+. . . . . . . . . . . . . . . . 
+. . . . . . . . . . . . . . . . 
+. . . . . . . . . . . . . . . . 
+. . . . . . . . . . . . . . . . 
+. . . . . . . . . . . . . . . . 
+. . . . . . . . . . . . . . . . 
+. . . . . . f . f . . . . . . . 
+. . . . . f 1 f 2 f . . . . . . 
+. . . . f 2 2 2 2 2 f . . . . . 
+. . . . . f 2 2 2 f . . . . . . 
+. . . . . . f 2 f . . . . . . . 
+. . . . . . . f . . . . . . . . 
+`, SpriteKind.life)
+        tiles.placeOnTile(lifePosition, lifeList)
+    }
+}
 controller.A.onEvent(ControllerButtonEvent.Pressed, function () {
     if (energy >= 1) {
         projectile = sprites.createProjectileFromSprite(img`
@@ -656,6 +639,24 @@ function placePlatforms () {
         } else {
             tiles.setWallAt(rightPlaformLocations, false)
         }
+    }
+}
+function clearLevel () {
+    mySprite.destroy()
+    for (let movingTrapList of sprites.allOfKind(SpriteKind.movingTrap)) {
+        movingTrapList.destroy()
+    }
+    for (let trapList of sprites.allOfKind(SpriteKind.Trap)) {
+        trapList.destroy()
+    }
+    for (let kuwagamonList of sprites.allOfKind(SpriteKind.wild)) {
+        kuwagamonList.destroy()
+    }
+    for (let platformList of sprites.allOfKind(SpriteKind.platform)) {
+        platformList.destroy()
+    }
+    for (let lifeList of sprites.allOfKind(SpriteKind.life)) {
+        lifeList.destroy()
     }
 }
 scene.onOverlapTile(SpriteKind.Player, sprites.dungeon.hazardWater, function (sprite, location) {
@@ -792,11 +793,11 @@ let sausageTrap: Sprite = null
 let kuwagamon: Sprite = null
 let vertiall = 0
 let projectile: Sprite = null
+let lifePosition: Sprite = null
 let jump = false
 let tamerDirection = ""
-let tamerState = ""
 let mySprite: Sprite = null
-let lifePosition: Sprite = null
+let tamerState = ""
 let unhurtable = 0
 let currentLevel = 0
 let horizontal = 0
