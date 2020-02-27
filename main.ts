@@ -683,6 +683,9 @@ function clearLevel () {
     for (let lifeList of sprites.allOfKind(SpriteKind.life)) {
         lifeList.destroy()
     }
+    for (let whamonList of sprites.allOfKind(SpriteKind.movingPlatform)) {
+        whamonList.destroy()
+    }
 }
 scene.onOverlapTile(SpriteKind.Player, sprites.dungeon.hazardWater, function (sprite, location) {
     game.over(false)
