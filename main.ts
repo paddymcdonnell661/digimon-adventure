@@ -836,8 +836,6 @@ f f f f 4 4 4 4 f 4 4 4 f f 4 f
 . . . . . . f 4 4 4 4 4 f f . . 
 . . . . . . . f f f f f . . . . 
 `, SpriteKind.Enemy)
-        tiles.placeOnTile(birdramon, birdramons)
-        birdramon.follow(mySprite, 100)
     }
 }
 function placeTraps () {
