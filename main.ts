@@ -534,7 +534,10 @@ f 1 1 1 1 8 8 8 8 f f . . . . .
         tiles.placeOnTile(whamon, whamonLocations)
         whamon.ay = 0
     }
-    whamonList = sprites.allOfKind(SpriteKind.movingPlatform)
+    whamonList2 = sprites.allOfKind(SpriteKind.movingPlatform)
+}
+function animateEnemies () {
+	
 }
 function animateTamer () {
     if (tamerState == "walking") {
@@ -714,7 +717,7 @@ function placeLife () {
 }
 function placePowerUps () {
     for (let powerUpLocation of tiles.getTilesByType(myTiles.tile19)) {
-        powerUp = sprites.create(img`
+        powerUp2 = sprites.create(img`
 . . . . . . . . . . . . . . . . 
 . . . . . . . . . . . . . . . . 
 . . . . . . . . . . . . . . . . 
@@ -732,9 +735,9 @@ function placePowerUps () {
 . . . . . . . . . . . . . . . . 
 . . . . . . . . . . . . . . . . 
 `, SpriteKind.powerUp)
-        tiles.placeOnTile(powerUp, powerUpLocation)
+        tiles.placeOnTile(powerUp2, powerUpLocation)
         animation.runImageAnimation(
-        powerUp,
+        powerUp2,
         [img`
 . . . . . . . . . . . . . . . . 
 . . . . . . . . . . . . . . . . 
@@ -887,7 +890,6 @@ f f f f 4 4 4 4 f 4 4 4 f f 4 f
 . . . . . . . f f f f f . . . . 
 `, SpriteKind.wild)
         tiles.placeOnTile(birdramon, birdramons)
-        birdramon.follow(mySprite, 100)
     }
 }
 sprites.onOverlap(SpriteKind.Player, SpriteKind.life, function (sprite, otherSprite) {
@@ -957,8 +959,8 @@ function clearLevel () {
     for (let platformList of sprites.allOfKind(SpriteKind.platform)) {
         platformList.destroy()
     }
-    for (let lifeList of sprites.allOfKind(SpriteKind.life)) {
-        lifeList.destroy()
+    for (let lifeList2 of sprites.allOfKind(SpriteKind.life)) {
+        lifeList2.destroy()
     }
     for (let whamonList of sprites.allOfKind(SpriteKind.movingPlatform)) {
         whamonList.destroy()
@@ -1014,7 +1016,6 @@ function initializeLevel (level: number) {
     placeTraps()
     placeMovingTraps()
     placeMovingPlatforms()
-    createEnemies()
     placeLife()
     placePowerUps()
     mySprite = sprites.create(img`
@@ -1039,6 +1040,7 @@ function initializeLevel (level: number) {
     controller.moveSprite(mySprite, 100, 0)
     tiles.placeOnRandomTile(mySprite, myTiles.tile7)
     scene.cameraFollowSprite(mySprite)
+    createEnemies()
     tamerState = "walking"
     tamerDirection = "right"
 }
@@ -1067,19 +1069,20 @@ let iceSpikes: Sprite = null
 let birdramon: Sprite = null
 let kuwagamon: Sprite = null
 let jump = false
-let powerUp: Sprite = null
+let powerUp2: Sprite = null
 let lifePosition: Sprite = null
 let vertiall = 0
 let projectile: Sprite = null
 let tamerDirection = ""
 let mySprite: Sprite = null
 let tamerState = ""
-let whamonList: Sprite[] = []
+let whamonList2: Sprite[] = []
 let whamon: Sprite = null
 let currentLevel = 0
 let horizontal = 0
 let invincibilityPeriod = 0
 let gravity = 0
+let attacking = 0
 game.showLongText("paddy fill this out later", DialogLayout.Center)
 scene.setBackgroundColor(9)
 let start_game = 1
@@ -1088,18 +1091,17 @@ invincibilityPeriod = 2000
 info.setScore(0)
 info.setLife(4)
 let energy = 10
-let attacking = 0
 horizontal = 1
 currentLevel = 0
 initializeLevel(currentLevel)
 game.onUpdateInterval(2000, function () {
     if (movingClock == false) {
-        for (let whamonLocation of whamonList) {
+        for (let whamonLocation of whamonList2) {
             whamonLocation.vx = 20
         }
         movingClock = true
     } else {
-        for (let whamonLocation2 of whamonList) {
+        for (let whamonLocation2 of whamonList2) {
             whamonLocation2.vx = -20
         }
         movingClock = false
@@ -1116,7 +1118,7 @@ game.onUpdate(function () {
 })
 game.onUpdate(function () {
     animateTamer()
-    for (let whamonRiding of whamonList) {
+    for (let whamonRiding of whamonList2) {
         if (mySprite.overlapsWith(whamonRiding)) {
             mySprite.ay = 0
             mySprite.y = whamonRiding.y - 10
