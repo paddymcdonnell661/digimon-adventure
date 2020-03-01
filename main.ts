@@ -14,6 +14,9 @@ namespace SpriteKind {
     export const life = SpriteKind.create()
     export const movingPlatform = SpriteKind.create()
     export const powerUp = SpriteKind.create()
+    export const pepperBreath = SpriteKind.create()
+    export const warrior = SpriteKind.create()
+    export const fire = SpriteKind.create()
 }
 namespace myTiles {
     //% blockIdentity=images._tile
@@ -510,6 +513,25 @@ f f f f f f f f f f f f f f f f
 . f 9 f . f 9 f . f 9 f . f 9 f 
 f 9 9 9 f 9 9 9 f 9 9 9 f 9 9 9 
 `
+    //% blockIdentity=images._tile
+    export const tile26 = img`
+. . . . . . . . . . . . . . . . 
+. . . . . . . . . . . . . . . . 
+. . . . . . . . . . . . . . . . 
+. . . . . . . . . . . . . . . . 
+. . . . . . . . . . . . . . . . 
+. . . . . . . . . . . . . . . . 
+. . . . . . . . . . . . . . . . 
+. . . . . . . . . . . . . . . . 
+. . . . . . . . . 9 9 . . . . . 
+. . . . . . . . . 9 9 9 . . . . 
+. . . . . . . . 9 9 9 9 . . . . 
+. . . . . 9 9 9 9 9 . . . . . . 
+. . . . 9 9 9 9 9 9 9 . . . . . 
+. . 9 9 9 9 9 9 9 9 . . . . . . 
+. . . . . . . 9 9 . . . . . . . 
+. . . . . . . 9 . . . . . . . . 
+`
 }
 function placeMovingPlatforms () {
     for (let whamonLocations of tiles.getTilesByType(myTiles.tile13)) {
@@ -535,9 +557,6 @@ f 1 1 1 1 8 8 8 8 f f . . . . .
         whamon.ay = 0
     }
     whamonList2 = sprites.allOfKind(SpriteKind.movingPlatform)
-}
-function animateEnemies () {
-	
 }
 function animateTamer () {
     if (tamerState == "walking") {
@@ -623,6 +642,27 @@ f e f e 4 4 e b f 4 4 e e f . . . . . .
     }
     if (tamerDirection == "left") {
         mySprite.image.flipX()
+    }
+}
+function animateEnemies () {
+    for (let agumonLocations of sprites.allOfKind(SpriteKind.warrior)) {
+        if (Math.percentChance(100)) {
+            pepperBreath = sprites.createProjectileFromSprite(img`
+. . f f f f . . 
+. f 2 2 4 4 f . 
+f 2 2 4 4 5 5 f 
+f 2 4 4 5 5 2 f 
+f 2 4 4 5 5 2 f 
+f 2 2 4 4 5 5 f 
+. f 2 2 4 4 f . 
+. . f f f f . . 
+`, agumonLocations, 0, 0)
+            pepperBreath.setKind(SpriteKind.fire)
+            xVel = mySprite.x - pepperBreath.x
+            yVel = mySprite.y - pepperBreath.y
+            hypotenuse = Math.sqrt(xVel + xVel + (yVel + yVel))
+            pepperBreath.setVelocity(xVel * (50 / hypotenuse), yVel * (50 / hypotenuse))
+        }
     }
 }
 controller.down.onEvent(ControllerButtonEvent.Pressed, function () {
@@ -890,6 +930,28 @@ f f f f 4 4 4 4 f 4 4 4 f f 4 f
 . . . . . . . f f f f f . . . . 
 `, SpriteKind.wild)
         tiles.placeOnTile(birdramon, birdramons)
+        birdramon.follow(mySprite, 50)
+    }
+    for (let agumons of tiles.getTilesByType(myTiles.tile26)) {
+        agumon = sprites.create(img`
+. . . . . . . . . . . . . . . . 
+. . . . . f f f f f f . . . . . 
+. . . . f 5 5 5 5 5 5 f . . . . 
+. f f f 5 5 5 5 f f 5 5 f . . . 
+f 5 5 5 5 5 5 5 7 f f 5 f . . . 
+f 5 5 5 5 5 5 5 f f f 5 f . . . 
+f 5 5 5 5 f f 5 5 5 5 5 f . . . 
+. f f f f 5 5 5 5 5 5 5 f . . . 
+. f 5 5 5 5 5 f f 5 5 f . . . . 
+. . f f f f f 5 f f 5 f . . . . 
+. f 1 5 f 5 5 f 1 5 5 5 f . . . 
+. f f f f 5 5 f f f f 5 f . . . 
+. . . . f f 5 5 5 5 f 5 5 f . . 
+. . f f 5 5 f f f f 5 5 5 f . . 
+. f 1 f 5 5 f . f 1 f 1 f 1 f . 
+. f f f f f f . f f f f f f f . 
+`, SpriteKind.warrior)
+        tiles.placeOnTile(agumon, agumons)
     }
 }
 sprites.onOverlap(SpriteKind.Player, SpriteKind.life, function (sprite, otherSprite) {
@@ -972,7 +1034,7 @@ scene.onOverlapTile(SpriteKind.Player, sprites.dungeon.hazardWater, function (sp
 function initializeLevel (level: number) {
     if (level == 0) {
         tiles.setTilemap(tiles.createTilemap(
-            hex`c80008000c001e000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000001b00001e000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000001e000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000001e000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000001c0000001d0000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000220000000000000000000000000000001d00002600000000000000000000000000000000000d000000001200000d0000000000001e1e1e1e1e1e1e1e1e1e1e1e00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000009090909090909090909090909000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000001d00000000000d00000026000000000000000d001200000d00200909090909091f0000000000000000000000200909090909090909090909091f00000000001e000000000000000000000000000000000d00000000001d00000000000000120000000000000d0000200909090909090909091f000d00000000000012001d00000000000d00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000d0000001200000000000000001d00000000000d000000000000000018090909090909001700000000090909090909090908080808080808080909090000000009090909080808080808080808080808080809090900000e051b001700000017000009090909090909090909090909090909090909090909090909090909090908080808080808080808080909090909090909090909090909090909090909000000000000000000000000000000000000000000000000000000000000000000000000000009090909090909090909090909090909090909090909090909090909090909090808080808080b0b0b0b0b0b080808080808080808080808080808080808080b0b0b0b0808080808080808080808080808080808080808080b0b0b0b0b0b0b0b0b0b0b0b0b080808080808080808080808080808080808080808080808080808080808080808080808080808080808080808080808080808080808080808080808080b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0808080808080808080808080808080808080808080808080808080808080808`,
+            hex`c80008000c001e000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000001b00001e000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000001e000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000001e000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000001c0000001d2900000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000001d29002600000000000000000000000000000000000d000000001200000d0000000000001e1e1e1e1e1e1e1e1e1e1e1e00000000000000000000000000000000000000000000000000000000000000000000290000000000000000000000000000000000000000000000000000000009090909090909090909090909000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000001d00000000000d00000000002200000000000d001200000d00200909090909091f0000000000000000000000200909090909090909090909091f00000000001e000000000000000000000000000000000d00000000001d00000000000000120000000000000d0000200909090909090909091f000d00000000000012001d00000000000d00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000d0000001200000000000000001d000000000029000000000000000018090909090909001700000000090909090909090908080808080808080909090000000009090909080808080808080808080808080809090900000e051b001700000017000009090909090909090909090909090909090909090909090909090909090908080808080808080808080909090909090909090909090909090909090909000000000000000000000000000000000000000000000000000000000000000000000000000009090909090909090909090909090909090909090909090909090909090909090808080808080b0b0b0b0b0b080808080808080808080808080808080808080b0b0b0b0808080808080808080808080808080808080808080b0b0b0b0b0b0b0b0b0b0b0b0b080808080808080808080808080808080808080808080808080808080808080808080808080808080808080808080808080808080808080808080808080b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0808080808080808080808080808080808080808080808080808080808080808`,
             img`
 . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 
 . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 
@@ -983,7 +1045,7 @@ function initializeLevel (level: number) {
 2 2 2 2 2 2 . . . . . . 2 2 2 2 2 2 2 2 2 . . . . . . 2 2 2 2 . . . . 2 2 2 2 2 . . . . . . . . . . . . 2 2 2 2 . . . . . . . . . . . . . 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 . . . . . . . . . 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 
 . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 
 `,
-            [myTiles.tile0,myTiles.tile1,myTiles.tile2,myTiles.tile3,myTiles.tile4,myTiles.tile5,myTiles.tile6,sprites.castle.tileGrass1,sprites.castle.tilePath5,sprites.castle.tilePath2,sprites.builtin.forestTiles28,sprites.dungeon.hazardWater,myTiles.tile7,sprites.castle.saplingPine,myTiles.tile8,sprites.builtin.crowd5,myTiles.tile9,myTiles.tile10,myTiles.tile11,sprites.castle.rock1,sprites.castle.rock2,sprites.castle.tileGrass2,myTiles.tile12,myTiles.tile13,myTiles.tile14,myTiles.tile15,myTiles.tile16,myTiles.tile17,myTiles.tile18,myTiles.tile19,myTiles.tile20,sprites.castle.tilePath3,sprites.castle.tilePath1,sprites.dungeon.buttonTealDepressed,myTiles.tile21,sprites.castle.shrub,myTiles.tile22,myTiles.tile23,myTiles.tile24,myTiles.tile25,sprites.castle.rock0],
+            [myTiles.tile0,myTiles.tile1,myTiles.tile2,myTiles.tile3,myTiles.tile4,myTiles.tile5,myTiles.tile6,sprites.castle.tileGrass1,sprites.castle.tilePath5,sprites.castle.tilePath2,sprites.builtin.forestTiles28,sprites.dungeon.hazardWater,myTiles.tile7,sprites.castle.saplingPine,myTiles.tile8,sprites.builtin.crowd5,myTiles.tile9,myTiles.tile10,myTiles.tile11,sprites.castle.rock1,sprites.castle.rock2,sprites.castle.tileGrass2,myTiles.tile12,myTiles.tile13,myTiles.tile14,myTiles.tile15,myTiles.tile16,myTiles.tile17,myTiles.tile18,myTiles.tile19,myTiles.tile20,sprites.castle.tilePath3,sprites.castle.tilePath1,sprites.dungeon.buttonTealDepressed,myTiles.tile21,sprites.castle.shrub,myTiles.tile22,myTiles.tile23,myTiles.tile24,myTiles.tile25,sprites.castle.rock0,myTiles.tile26],
             TileScale.Sixteen
         ))
     } else {
@@ -1008,7 +1070,7 @@ function initializeLevel (level: number) {
 2 2 2 2 2 2 . . . . . . . . . . . 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 . . . . . 2 2 2 2 2 2 2 2 . . . . . . . . . . . . . 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 
 2 2 2 2 2 2 . . . . . . . . . . . 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 . . . . . 2 2 2 2 2 2 2 2 . . . . . . . . . . . . . 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 
 `,
-            [myTiles.tile0,myTiles.tile1,myTiles.tile2,myTiles.tile3,myTiles.tile4,myTiles.tile5,myTiles.tile6,myTiles.tile7,myTiles.tile8,myTiles.tile9,myTiles.tile10,myTiles.tile11,myTiles.tile12,myTiles.tile13,myTiles.tile14,sprites.castle.tileGrass1,myTiles.tile15,myTiles.tile16,myTiles.tile17,myTiles.tile18,sprites.castle.tilePath2,sprites.castle.tilePath5,myTiles.tile19,myTiles.tile20,myTiles.tile21,myTiles.tile22,myTiles.tile23,sprites.dungeon.hazardWater,myTiles.tile24,myTiles.tile25],
+            [myTiles.tile0,myTiles.tile1,myTiles.tile2,myTiles.tile3,myTiles.tile4,myTiles.tile5,myTiles.tile6,myTiles.tile7,myTiles.tile8,myTiles.tile9,myTiles.tile10,myTiles.tile11,myTiles.tile12,myTiles.tile13,myTiles.tile14,sprites.castle.tileGrass1,myTiles.tile15,myTiles.tile16,myTiles.tile17,myTiles.tile18,sprites.castle.tilePath2,sprites.castle.tilePath5,myTiles.tile19,myTiles.tile20,myTiles.tile21,myTiles.tile22,myTiles.tile23,sprites.dungeon.hazardWater,myTiles.tile24,myTiles.tile25,myTiles.tile26],
             TileScale.Sixteen
         ))
         }
@@ -1041,6 +1103,7 @@ function initializeLevel (level: number) {
     tiles.placeOnRandomTile(mySprite, myTiles.tile7)
     scene.cameraFollowSprite(mySprite)
     createEnemies()
+    animateEnemies()
     tamerState = "walking"
     tamerDirection = "right"
 }
@@ -1066,6 +1129,7 @@ info.onLifeZero(function () {
 })
 let movingClock = false
 let iceSpikes: Sprite = null
+let agumon: Sprite = null
 let birdramon: Sprite = null
 let kuwagamon: Sprite = null
 let jump = false
@@ -1073,6 +1137,10 @@ let powerUp2: Sprite = null
 let lifePosition: Sprite = null
 let vertiall = 0
 let projectile: Sprite = null
+let hypotenuse = 0
+let yVel = 0
+let xVel = 0
+let pepperBreath: Sprite = null
 let tamerDirection = ""
 let mySprite: Sprite = null
 let tamerState = ""
