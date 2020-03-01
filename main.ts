@@ -558,6 +558,18 @@ f 1 1 1 1 8 8 8 8 f f . . . . .
     }
     whamonList2 = sprites.allOfKind(SpriteKind.movingPlatform)
 }
+sprites.onOverlap(SpriteKind.Player, SpriteKind.warrior, function (sprite, otherSprite) {
+    if (sprite.vy > 0 && (!(sprite.isHittingTile(CollisionDirection.Bottom)) || sprite.y == otherSprite.top)) {
+        sprite.vy = -100
+        otherSprite.destroy()
+        info.changeScoreBy(1)
+    } else {
+        sprite.startEffect(effects.spray)
+        info.changeLifeBy(-1)
+        pause(invincibilityPeriod)
+        effects.clearParticles(sprite)
+    }
+})
 function animateTamer () {
     if (tamerState == "walking") {
         if (mySprite.x % 2 == 0) {
@@ -665,6 +677,10 @@ f 2 2 4 4 5 5 f
         }
     }
 }
+sprites.onOverlap(SpriteKind.fire, SpriteKind.Player, function (sprite, otherSprite) {
+    sprite.destroy(effects.fire, 100)
+    info.changeLifeBy(-1)
+})
 controller.down.onEvent(ControllerButtonEvent.Pressed, function () {
     tamerState = "dashing"
     if (tamerDirection == "right") {
@@ -1105,8 +1121,14 @@ function initializeLevel (level: number) {
     createEnemies()
     tamerState = "walking"
     tamerDirection = "right"
+    timeAnimation = 0
 }
 sprites.onOverlap(SpriteKind.wild, SpriteKind.Projectile, function (sprite, otherSprite) {
+    sprite.destroy(effects.disintegrate, 500)
+    scene.cameraShake(4, 100)
+    otherSprite.destroy()
+})
+sprites.onOverlap(SpriteKind.warrior, SpriteKind.Projectile, function (sprite, otherSprite) {
     sprite.destroy(effects.disintegrate, 500)
     scene.cameraShake(4, 100)
     otherSprite.destroy()
@@ -1127,6 +1149,7 @@ info.onLifeZero(function () {
     }
 })
 let movingClock = false
+let timeAnimation = 0
 let iceSpikes: Sprite = null
 let agumon: Sprite = null
 let birdramon: Sprite = null
@@ -1196,9 +1219,10 @@ game.onUpdate(function () {
         }
     }
     placePlatforms()
-    animateEnemies()
-})
-game.onUpdate(function () {
+    if (game.runtime() - timeAnimation >= 2000) {
+        animateEnemies()
+        timeAnimation = game.runtime()
+    }
     if (mySprite.vx > 0) {
         vertiall = 0
         horizontal = 1
