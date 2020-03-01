@@ -660,7 +660,7 @@ f 2 2 4 4 5 5 f
             pepperBreath.setKind(SpriteKind.fire)
             xVel = mySprite.x - pepperBreath.x
             yVel = mySprite.y - pepperBreath.y
-            hypotenuse = Math.sqrt(xVel + xVel + (yVel + yVel))
+            hypotenuse = Math.sqrt(xVel * xVel + yVel * yVel)
             pepperBreath.setVelocity(xVel * (50 / hypotenuse), yVel * (50 / hypotenuse))
         }
     }
@@ -1103,7 +1103,6 @@ function initializeLevel (level: number) {
     tiles.placeOnRandomTile(mySprite, myTiles.tile7)
     scene.cameraFollowSprite(mySprite)
     createEnemies()
-    animateEnemies()
     tamerState = "walking"
     tamerDirection = "right"
 }
@@ -1197,6 +1196,7 @@ game.onUpdate(function () {
         }
     }
     placePlatforms()
+    animateEnemies()
 })
 game.onUpdate(function () {
     if (mySprite.vx > 0) {
